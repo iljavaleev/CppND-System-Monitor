@@ -12,7 +12,7 @@ class ProcessParser {
         static long int getSysUpTime();
         static std::string getProcUpTime(std::string pid);
         static std::string getProcUser(std::string pid);
-        static std::vector<std::string> getSysCpuPercent(std::string);
+        static std::vector<std::string> getSysCpuPercent(std::string coreNumber="");
         static float getSysRamPercent();
         static std::string getSysKernelVersion();
         static int getTotalThreads();
@@ -20,6 +20,11 @@ class ProcessParser {
         static int getNumberOfRunningProcesses();
         static std::string getOsName();
         static std::string printCpuStats(std::vector<std::string> values1, std::vector<std::string>values2);
+    
+        
+        static int getNumberOfCores();
+        static std::vector<std::string> getStatValues(std::string);
+
 };
 
 #endif

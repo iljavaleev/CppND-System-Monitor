@@ -74,13 +74,13 @@ void NCursesDisplay::DisplayProcesses(std::vector<Process>& processes,
     // Clear the line
     mvwprintw(window, ++row, pid_column, (string(getmaxx(window) - 2, ' ').c_str()));
     
-    mvwprintw(window, row, pid_column, to_string(processes[i].getPID()).c_str());
+    mvwprintw(window, row, pid_column, processes[i].getPID().c_str());
     mvwprintw(window, row, user_column, processes[i].getUser().c_str());
     float cpu = processes[i].CpuUtilization() * 100;
     mvwprintw(window, row, cpu_column, to_string(cpu).substr(0, 4).c_str());
     mvwprintw(window, row, ram_column, processes[i].getRam().c_str());
     mvwprintw(window, row, time_column,
-              Format::ElapsedTime(processes[i].getUpTime()).c_str());
+              (Format::ElapsedTime(stol(processes[i].getUpTime())).c_str()));
     mvwprintw(window, row, command_column,
               processes[i].getCMD().substr(0, getmaxx(window) - 46).c_str());
   }

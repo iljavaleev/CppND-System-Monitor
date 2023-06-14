@@ -5,23 +5,24 @@
 #include <vector>
 
 #include "process.h"
+#include "ProcessParser.h"
+using std::string;
 
+Process::Process(string pid):PID{pid}, User{ProcessParser::getProcUser(pid)}, CMD(ProcessParser::getCmd(pid)), CPU(ProcessParser::getCpuPercent(pid)), Memory(ProcessParser::getVmSize(pid)), UpTime(ProcessParser::getProcUpTime(pid)){}
 
-Process::Process(){}
-
-int Process::getPID() const{
+string Process::getPID() const{
     return PID;
 }
 
-void Process::setPID(int pid){
+void Process::setPID(string pid){
     PID = pid;
 }
 
-std::string Process::getUser() const{
+string Process::getUser() const{
     return User;
 }
 
-std::string Process::getCMD() const{
+string Process::getCMD() const{
     return CMD;
 }
 
@@ -33,36 +34,40 @@ void Process::setCMD(std::string cmd){
     CMD = cmd;
 }
 
-float Process::getCPU() const{
+string Process::getCPU() const{
     return CPU;
 }
 
-void Process::setCPU(float cpu){
+void Process::setCPU(string cpu){
     CPU = cpu;
 }
 
-float Process::getMemory() const{
+string Process::getMemory() const{
     return Memory;
 }
 
-void Process::setMemory(float mem){
+void Process::setMemory(string mem){
     Memory = mem;
 }
 
-long int Process::getUpTime() const{
+string Process::getUpTime() const{
     return UpTime;
 }
 
-void Process::setUpTime(long int time){
+void Process::setUpTime(string time){
     UpTime = time;
 }
 
 std::string Process::getRam() const { return std::string(); }
 
-// TODO: Overload the "less than" comparison operator for Process objects
-// REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& a[[maybe_unused]]) const { return true; }
+bool Process::operator<(Process const& a) const {
+    return stol(Memory) + stol(CPU) < stol(a.getMemory()) + stol(a.getCPU());
+}
 
 float Process::CpuUtilization(){
     return 0;
+}
+
+string Process::getProcess(){
+    return PID + " " + User + " " + Memory.substr(0, 5) + " " + CPU.substr(0, 5) + " " + UpTime.substr(0, 5) + " " + CMD.substr(0, 30) + "...";
 }

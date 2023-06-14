@@ -3,38 +3,42 @@
 
 #include <string>
 
+using std::string;
+
 class Process {
  public:
-    Process();
-    int getPID() const;
-    void setPID(int);
+    Process(string);
+    string getPID() const;
+    void setPID(string);
     
-    std::string getUser() const;
-    void setUser(std::string);
+    string getUser() const;
+    void setUser(string);
     
-    std::string getCMD() const;
-    void setCMD(std::string);
+    string getCMD() const;
+    void setCMD(string);
     
-    float getCPU() const;
-    void setCPU(float);
+    string getCPU() const;
+    void setCPU(string);
     
-    float getMemory() const;
-    void setMemory(float);
+    string getMemory() const;
+    void setMemory(string);
     
-    long int getUpTime() const;
-    void setUpTime(long int);
+    string getUpTime() const;
+    void setUpTime(string);
     
-    std::string getRam() const;
-    bool operator<(Process const& a[[maybe_unused]]) const;
+    string getRam() const;
+    bool operator<(Process const& a) const;
     float CpuUtilization();
     
+    string getProcess();
+    
  private:
-    int PID{};
-    std::string User{};
-    std::string CMD{};
-    float CPU{};
-    float Memory{};
-    long int UpTime{};
+    string PID{};
+    string User{};
+    string CMD{};
+    string CPU{};
+    string Memory{};
+    string UpTime{};
     
     
 };
